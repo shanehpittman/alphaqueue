@@ -1,0 +1,57 @@
+syntax = "proto3";
+package queue;
+
+option go_package = "queuepb";
+
+service QueueService {
+    rpc CreateQueue (CreateQueueRequest) returns (CreateQueueResponse);
+    rpc DeleteQueue (DeleteQueueRequest) returns (DeleteQueueResponse); // return NOT_FOUND if not found
+    rpc ListQueue (ListQueueRequest) returns (stream ListQueueResponse);
+    rpc ReadQueue (ReadQueueRequest) returns (ReadQueueResponse); // return NOT_FOUND if not found
+    rpc UpdateQueue (UpdateQueueRequest) returns (UpdateQueueResponse); // return NOT_FOUND if not found
+}
+
+message Queue {
+    string id = 1;
+    string author_id = 2;
+    string title = 3;
+    string content = 4;
+}
+
+message CreateQueueRequest {
+    Queue queue = 1;
+}
+
+message CreateQueueResponse {
+    Queue queue = 1; // Will have a queue id
+}
+
+message DeleteQueueRequest {
+    string queue_id = 1;
+}
+
+message DeleteQueueResponse {
+    string queue_id = 1;
+}
+
+message ListQueueRequest {}
+
+message ListQueueResponse {
+    Queue queue = 1;
+}
+
+message ReadQueueRequest {
+    string queue_id = 1;
+}
+
+message ReadQueueResponse {
+    Queue queue = 1;
+}
+
+message UpdateQueueRequest {
+    Queue queue = 1;
+}
+
+message UpdateQueueResponse {
+    Queue queue = 1;
+}
